@@ -1,7 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState = {
+export interface ICartItem {
+    id: string;
+    title: string;
+    price: string;
+    img: string;
+    amount: number;
+}
+
+interface IInitialCartState {
+    cartItems: ICartItem[];
+    amount: number;
+    total: number;
+    isLoading: boolean;
+}
+
+const initialState: IInitialCartState = {
     cartItems: [],
     amount: 4,
     total: 0,
@@ -11,7 +26,7 @@ const initialState = {
 // "CreateAsyncThunk" accepts "a action string" and a "callback function" that return a promise.
 export const getCartItems = createAsyncThunk(
     'cart/getCartItems',
-    // thunkAPI 可以使用方法getState()拿到store所有的state, 可以使用dispatch()调用所有的action
+    // thunkAPI
     async (params, thunkAPI) => {
         try {
             const res = await axios(
@@ -39,14 +54,18 @@ const cartSlice = createSlice({
             const cartItem = state.cartItems.find(
                 (item) => item.id === action.payload.id,
             );
-            cartItem.amount += 1;
+            if (cartItem) {
+                cartItem.amount += 1;
+            }
         },
 
         decrease: (state, action) => {
             const cartItem = state.cartItems.find(
                 (item) => item.id === action.payload.id,
             );
-            cartItem.amount -= 1;
+            if (cartItem) {
+                cartItem.amount -= 1;
+            }
         },
 
         removeItem: (state, action) => {
@@ -60,7 +79,7 @@ const cartSlice = createSlice({
             let amount = 0;
             let total = 0;
             state.cartItems.forEach((item) => {
-                total += item.amount * item.price;
+                total += item.amount * Number(item.price);
                 amount += item.amount;
             });
             state.total = total;

@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import CartContainer from './components/CartContainer';
 import Modal from './components/Modal';
 import NavBar from './components/NavBar';
 import { getCartItems } from './features/cart/cartSlice';
+import { useAppDispatch, useAppSelector } from './hooks/hooks';
 
-function App() {
-    const { isLoading } = useSelector((state) => state.cart);
-    const { isOpen } = useSelector((state) => state.modal);
-    const dispatch = useDispatch();
+const App = () => {
+    const { isLoading } = useAppSelector((state) => state.cart);
+    const { isOpen } = useAppSelector((state) => state.modal);
+    const dispatch = useAppDispatch();
 
     // 数据请求
     useEffect(() => {
@@ -30,6 +30,6 @@ function App() {
             <CartContainer />
         </main>
     );
-}
+};
 
 export default App;
