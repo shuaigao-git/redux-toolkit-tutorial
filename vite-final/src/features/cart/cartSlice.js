@@ -15,6 +15,7 @@ export const getCartItems = createAsyncThunk('cart/getCartItems', async (name, t
     try {
         // console.log(name);
         // console.log(thunkAPI);
+        // thunkAPI可以拿到所有数据
         // console.log(thunkAPI.getState());
         // thunkAPI.dispatch(openModal());
         const resp = await axios(url);
