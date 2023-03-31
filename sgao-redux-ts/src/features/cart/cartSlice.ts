@@ -34,7 +34,7 @@ export const getCartItems = createAsyncThunk(
             );
             return res.data;
         } catch (error) {
-            thunkAPI.rejectWithValue('something went wrong');
+            console.log(error);
         }
     },
 );

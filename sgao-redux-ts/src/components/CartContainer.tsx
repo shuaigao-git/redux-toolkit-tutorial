@@ -6,7 +6,7 @@ const CartContainer = () => {
     const { cartItems, amount, total } = useAppSelector((state) => state.cart);
     const dispatch = useAppDispatch();
 
-    if (amount < 1) {
+    if (amount < 1 || !cartItems) {
         return (
             <section className='cart'>
                 <header>
@@ -23,7 +23,7 @@ const CartContainer = () => {
                 <h2>your bag</h2>
             </header>
             <div>
-                {cartItems.map((item) => {
+                {cartItems?.map((item) => {
                     return <CartItem key={item.id} {...item} />;
                 })}
             </div>

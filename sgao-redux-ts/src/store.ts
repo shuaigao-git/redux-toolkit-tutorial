@@ -9,6 +9,8 @@ const store = configureStore({
     },
 });
 
+console.log(store.getState());
+
 export default store;
 
 // ReturnType获取函数返回值
